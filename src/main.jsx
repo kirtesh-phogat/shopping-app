@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { RouterProvider } from "react-router";
+import { RouterProvider } from "react-router-dom";
 import router from "./Routes";
 import AuthContextWrappper from "./context/AuthContextWrappper";
 import { Provider } from "react-redux";
@@ -11,7 +11,7 @@ createRoot(document.getElementById("root")).render(
   // <StrictMode>
   <Provider store={store}>
     <AuthContextWrappper>
-      <RouterProvider router={router} />,
+      <RouterProvider router={router} />
     </AuthContextWrappper>
   </Provider>,
   // </StrictMode>,

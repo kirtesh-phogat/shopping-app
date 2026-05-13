@@ -126,7 +126,8 @@ const registerSchema = z.object({
     .min(2, "name must be lengthen 2 or more characters")
     .regex(/^[A-Za-z ]+$/, "only alphabets are allowed"),
 
-  email: z.email(),
+  // email: z.email(),
+  email: z.string().email("Invalid email"),
 
   password: z.string().min(6, "password must be at least 6 characters"),
 });

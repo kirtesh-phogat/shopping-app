@@ -314,7 +314,9 @@ const CardGallery = () => {
           </h1>
           <div className="px-12 py-4 gap-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6">
             {/* <Card product={products[0]} owner="Aman Tiwari" /> */}
-            {products.map((product) => (
+            {/* {products.map((product) => ( */}
+            {Array.isArray(products) &&
+              products.map((product) => (
               <Card product={product} key={product.id} />
             ))}
           </div>

@@ -56,7 +56,7 @@ const ValueMemoization = () => {
   const heavyCalculation = (num) => {
     console.log("heavy calculation is running...");
     let result = 0;
-    for (let i = 0; i < 1e9; i++) {
+    for (let i = 0; i < 100000; i++) {
       result += num;
     }
     return result;
