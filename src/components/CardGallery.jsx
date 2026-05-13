@@ -294,6 +294,7 @@ const CardGallery = () => {
         if (response.status == 200) {
           const data = response.data.data;
           setProducts(Array.isArray(data) ? data : []);
+          // setProducts(data)
         }
       } catch (error) {
         console.log(error.message);
