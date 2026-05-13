@@ -6,7 +6,6 @@ const LandingPage = () => {
   return (
     <>
       <HeroSlider />
-      <h1 className="text-3xl">LandingPage</h1>
       <CardGallery />
     </>
   );
