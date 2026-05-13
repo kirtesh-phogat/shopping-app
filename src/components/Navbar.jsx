@@ -8,7 +8,9 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const { isLoggedIn } = useAuth();
 
-  const products = useSelector((state) => state.cart.cartItem);
+  // const products = useSelector((state) => state.cart.cartItem);
+  const products = useSelector(
+  (state) => state.cart.cartItem || [] );
   return (
     <>
       <nav className="bg-white sticky top-0 z-10 w-full border-gray-200 dark:bg-gray-900">
@@ -113,7 +115,8 @@ const Navbar = () => {
                     `block py-2 px-3 rounded-sm bg-transparent md:p-0 text-black dark:text-white ${isActive ? "text-blue-500!" : "hover:text-blue-500!"}`
                   }
                 >
-                  Cart ({products.length})
+                  {/* Cart ({products.length}) */}
+                  Cart ({Array.isArray(products) ? products.length : 0})
                 </NavLink>
               </li>
             </ul>
