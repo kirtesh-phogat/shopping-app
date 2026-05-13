@@ -292,7 +292,7 @@ const CardGallery = () => {
         const response = await productsApi.get("/");
         console.log(response);
         if (response.status == 200) {
-          const data = response.data;
+          const data = response.data.data.data;
           setProducts(data);
         }
       } catch (error) {
