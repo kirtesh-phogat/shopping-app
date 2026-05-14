@@ -85,7 +85,7 @@ const Card = ({ product }) => {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold text-gray-900 ">
-              ${product?.price ?? 599}
+             ₹{Math.ceil((product?.price ?? 599) * 80)}
             </span>
             <button
               onClick={() => dispatch(addProductIntoCart(product))}
