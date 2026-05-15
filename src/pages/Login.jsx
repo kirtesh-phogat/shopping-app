@@ -20,14 +20,6 @@ const Login = () => {
       [name]: value,
     });
   };
-
-  // const formSubmitHandler = (e) => {
-  //   e.preventDefault();
-  //   login(formData);
-  //   console.log("form Submitted :", formData);
-  //   setFormData(initState);
-  //   toast.success("form submitted!");
-  // };
   
   const formSubmitHandler = (e) => {
   e.preventDefault();

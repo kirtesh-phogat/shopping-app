@@ -3,20 +3,6 @@ import { useEffect, useState } from "react";
 const LearnUseEffect = () => {
   const [num, setNum] = useState(0);
   const [name, setName] = useState("");
-  //   useEffect(() => {
-  //     console.log("component re-rendered! ", num, " : ", name);
-  //   }); // it will run automatically everytime when there is any change in states or props
-  //   useEffect(() => {
-  //     console.log("component re-rendered! ", num, " : ", name);
-  //   }, []); // it will run automatically one time when the component mounts on the UI
-  //   useEffect(() => {
-  //     console.log("component mounted");
-  //     return () => console.log("component unmounted!");
-  //   }, []); // it will run automatically one time when the component mounts on the UI
-
-  //   useEffect(() => {
-  //     console.log("component re-rendered! ", num);
-  //   }, [num]);
   useEffect(() => {
     console.log("component re-rendered! ", num, " : ", name);
   }, [num, name]);

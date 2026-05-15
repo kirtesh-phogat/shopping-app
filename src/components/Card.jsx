@@ -1,6 +1,3 @@
-// const Card = (props) => {
-//     console.log(props);
-
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addProductIntoCart } from "../redux/slices/cartSlice";
