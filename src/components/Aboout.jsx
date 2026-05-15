@@ -4,6 +4,7 @@ import { Link } from "react-router";
 const Aboout = () => {
   return (
     <div className="bg-white text-black min-h-screen">
+        
       {/* Hero Section */}
       <section className="py-24 px-6 text-center bg-zinc-100">
         <h1 className="text-5xl md:text-6xl font-bold mb-6">About Our Store</h1>
