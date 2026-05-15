@@ -9,6 +9,8 @@ import Wrapping from "./components/Wrapping";
 import Cart from "./pages/Cart";
 import LearnRef from "./components/LearnRef";
 import Memoization from "./components/Memoization";
+import About from "./pages/About";
+import Services from "./pages/services";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +54,14 @@ const router = createBrowserRouter([
         path: "*",
         element: <NotFound />,
       },
+      {
+        path: "about",
+        element: <About />,
+      },
+      {
+        path: "services",
+        element: <Services />
+      }
     ],
   },
 ]);

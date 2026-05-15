@@ -83,7 +83,7 @@ const Navbar = () => {
               </li>
               <li>
                 <NavLink
-                  to="/about"
+                  to="/About"
                   className={({ isActive }) =>
                     `block py-2 px-3 rounded-sm bg-transparent md:p-0 text-black dark:text-white ${isActive ? "text-blue-500!" : "hover:text-blue-500!"}`
                   }
@@ -93,22 +93,12 @@ const Navbar = () => {
               </li>
               <li>
                 <NavLink
-                  to="/hvsdbjhvdbhvdbs"
+                  to="/Services"
                   className={({ isActive }) =>
                     `block py-2 px-3 rounded-sm bg-transparent md:p-0 text-black dark:text-white ${isActive ? "text-blue-500!" : "hover:text-blue-500!"}`
                   }
                 >
                   Services
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/register"
-                  className={({ isActive }) =>
-                    `block py-2 px-3 rounded-sm bg-transparent md:p-0 text-black dark:text-white ${isActive ? "text-blue-500!" : "hover:text-blue-500!"}`
-                  }
-                >
-                  Pricing
                 </NavLink>
               </li>
               <li>

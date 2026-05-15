@@ -5,7 +5,7 @@ import HeroSlider from "../components/HeroSlider";
 const LandingPage = () => {
   return (
     <>
-      <HeroSlider />
+      <HeroSlider /> 
       <CardGallery />
     </>
   );
