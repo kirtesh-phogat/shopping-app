@@ -62,7 +62,7 @@ const CartItem = ({ product, dispatch }) => {
 
       <div className="flex items-center justify-between mt-4">
         <span className="text-xl font-bold text-green-600">
-          ${product.price}
+           ₹{Math.ceil((product?.price) * 80)}
         </span>
 
         <span className="text-sm text-yellow-600">
