@@ -10,7 +10,7 @@ import Cart from "./pages/Cart";
 import LearnRef from "./components/LearnRef";
 import Memoization from "./components/Memoization";
 import About from "./pages/About";
-import Services from "./pages/services";
+import Services from "./pages/Services";
 
 const router = createBrowserRouter([
   {
