@@ -1,39 +1,89 @@
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addProductIntoCart } from "../redux/slices/cartSlice";
 
-const Card = ({ product }) => {
-  const dispatch = useDispatch();
+const ProductDetails = () => {
+  const { productId } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    async function fetchProduct() {
+      try {
+        const response = await fetch(
+          `https://dummyjson.com/products/${productId}`,
+        );
+
+        const data = await response.json();
+
+        setProduct(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchProduct();
+  }, [productId]);
+
+  if (!product) {
+    return (
+      <div className="p-8">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+
   return (
-    <>
-      <div
-        onClick={() => navigate(`/product/${product.id}`)}
-        className="w-full bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 cursor-pointer"
-        title={product?.title}
+    <div className="max-w-6xl mx-auto p-6">
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-6 px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
       >
-        <Link to="/" className="flex justify-center">
+        ← Back
+      </button>
+
+      <div className="grid md:grid-cols-2 gap-10">
+        <div>
           <img
-            className="w-full h-24 sm:h-32 md:h-40 object-contain p-2 hover:scale-105 transition duration-300"
-            src={
-              product?.thumbnail ??
-              "https://v3.flowbite.com/images/products/apple-watch.png"
-            }
-            alt="product image"
+            src={product.thumbnail}
+            alt={product.title}
+            className="w-full max-h-125 object-contain rounded-2xl shadow-lg"
           />
-        </Link>
-        <div className="p-2">
-          <a href="#">
-            <p className="text-xs uppercase tracking-wide text-gray-400 mb-2">
-              {product?.category}
-            </p>
-            <h5 className="text-sm font-semibold text-gray-900 line-clamp-2 min-h-8">
-              {product?.title?.length > 22
-                ? product?.title.substr(0, 22) + ".."
-                : (product?.title ?? "No Name")}
-            </h5>
-          </a>
-          <div className="flex items-center mt-1 mb-1 ">
+        </div>
+
+        <div>
+          <p className="uppercase text-sm text-gray-500">{product.category}</p>
+
+          <h1 className="text-4xl font-bold mt-2">{product.title}</h1>
+          <div className="flex items-center gap-3 mt-3">
+            <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+              {product.discountPercentage}% OFF
+            </span>
+
+            <span className="text-green-600 font-medium">In Stock</span>
+          </div>
+
+          <p className="text-gray-600 mt-4">{product.description}</p>
+
+          <div className="mt-6">
+            <span className="text-4xl font-bold">
+              <div className="flex items-center gap-4 mt-6">
+                <span className="text-4xl font-bold">
+                  ₹{Math.ceil(product.price * 80)}
+                </span>
+
+                <span className="text-gray-400 line-through text-xl">
+                  ₹{Math.ceil(product.price * 95)}
+                </span>
+              </div>
+            </span>
+          </div>
+
+          <div className="mt-4">
+            <div className="flex items-center mt-1 mb-1 ">
             <div className="flex items-center space-x-1 rtl:space-x-reverse">
               <svg
                 className="w-4 h-4 text-yellow-300"
@@ -85,39 +135,26 @@ const Card = ({ product }) => {
               {product?.rating ?? "5.0"}
             </span>
           </div>
-          <div className="mt-4">
-            <div className="flex items-center gap-2 flex-wrap mb-3">
-              <span className="text-lg sm:text-xl font-bold text-gray-900">
-                ₹{Math.ceil((product?.price ?? 599) * 80)}
-              </span>
-
-              <span className="text-sm text-gray-400 line-through">
-                ₹
-                {Math.ceil(
-                  ((product?.price ?? 599) * 80) /
-                    (1 - (product?.discountPercentage ?? 10) / 100),
-                )}
-              </span>
-
-              <span className="text-xs font-semibold text-green-600">
-                {Math.round(product?.discountPercentage)}% OFF
-              </span>
-            </div>
-
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                dispatch(addProductIntoCart(product));
-              }}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm py-2 rounded-xl transition font-medium"
-            >
-              Add to cart
-            </button>
           </div>
+
+          <button
+            onClick={() => dispatch(addProductIntoCart(product))}
+            className="
+              mt-8
+              bg-indigo-600
+              hover:bg-indigo-700
+              text-white
+              px-8
+              py-3
+              rounded-xl
+            "
+          >
+            Add To Cart
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Card;
+export default ProductDetails;

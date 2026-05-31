@@ -11,6 +11,8 @@ import LearnRef from "./components/LearnRef";
 import Memoization from "./components/Memoization";
 import About from "./pages/About";
 import Services from "./pages/Services";
+import CategoryProducts from "./pages/CategoryProducts";
+import ProductDetails from "./pages/productDetail";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "category/:categoryName",
+        element: <CategoryProducts />
+      },
+      {
+        path: "product/:productId",
+        element: <ProductDetails />
       },
       {
         path: "services",
