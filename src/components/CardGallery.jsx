@@ -33,7 +33,7 @@ const CardGallery = () => {
           <h1 className="text-4xl text-center underline bold mt-3 text-indigo-500">
             List of All Products
           </h1>
-          <div className="px-12 py-4 gap-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6">
+          <div className="px-12 py-4 gap-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6">
             {/* <Card product={products[0]} owner="Aman Tiwari" /> */}
             {/* {products.map((product) => ( */}
             {Array.isArray(products) &&
