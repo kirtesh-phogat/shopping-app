@@ -27,13 +27,13 @@ export default function HeroSlider() {
         modules={[Pagination, Navigation,Autoplay]}
         className="mySwiper"
       >
-        <SwiperSlide><img src="assets/img/slide (1).jpg" alt="" className="h-75 min-w-full" loading="lazy"/></SwiperSlide>
-        <SwiperSlide><img src="assets/img/slide (2).jpg" alt="" className="h-75 min-w-full" loading="lazy"/></SwiperSlide>
-        <SwiperSlide><img src="assets/img/slide (3).jpg" alt="" className="h-75 min-w-full" loading="lazy"/></SwiperSlide>
-        <SwiperSlide><img src="assets/img/slide (4).jpg" alt="" className="h-75 min-w-full" loading="lazy"/></SwiperSlide>
-        <SwiperSlide><img src="assets/img/slide (5).jpg" alt="" className="h-75 min-w-full" loading="lazy"/></SwiperSlide>
-        <SwiperSlide><img src="assets/img/slide (6).jpg" alt="" className="h-75 min-w-full" loading="lazy"/></SwiperSlide>
-        <SwiperSlide><img src="assets/img/slide (7).jpg" alt="" className="h-75 min-w-full" loading="lazy"/></SwiperSlide>
+        <SwiperSlide><img src="assets/img/slide (1).jpg" alt="" className="w-full h-[220px] sm:h-[280px] md:h-[400px] object-cover" loading="lazy"/></SwiperSlide>
+        <SwiperSlide><img src="assets/img/slide (2).jpg" alt="" className="w-full h-[220px] sm:h-[280px] md:h-[400px] object-cover" loading="lazy"/></SwiperSlide>
+        <SwiperSlide><img src="assets/img/slide (3).jpg" alt="" className="w-full h-[220px] sm:h-[280px] md:h-[400px] object-cover" loading="lazy"/></SwiperSlide>
+        <SwiperSlide><img src="assets/img/slide (4).jpg" alt="" className="w-full h-[220px] sm:h-[280px] md:h-[400px] object-cover" loading="lazy"/></SwiperSlide>
+        <SwiperSlide><img src="assets/img/slide (5).jpg" alt="" className="w-full h-[220px] sm:h-[280px] md:h-[400px] object-cover" loading="lazy"/></SwiperSlide>
+        <SwiperSlide><img src="assets/img/slide (6).jpg" alt="" className="w-full h-[220px] sm:h-[280px] md:h-[400px] object-cover" loading="lazy"/></SwiperSlide>
+        <SwiperSlide><img src="assets/img/slide (7).jpg" alt="" className="w-full h-[220px] sm:h-[280px] md:h-[400px] object-cover" loading="lazy"/></SwiperSlide>
       </Swiper>
     </>
   );
