@@ -12,7 +12,7 @@ const CardGallery = () => {
         const response = await productsApi.get("/");
         console.log(response);
         if (response.status == 200) {
-          const data = response.data.data;
+          const data = response.data.products;
           setProducts(Array.isArray(data) ? data : []);
           // setProducts(data)
         }

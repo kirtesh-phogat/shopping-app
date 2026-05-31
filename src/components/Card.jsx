@@ -14,7 +14,7 @@ const Card = ({ product }) => {
           <img
             className="p-8 rounded-t-lg h-52"
             src={
-              product?.image ??
+              product?.thumbnail ??
               "https://v3.flowbite.com/images/products/apple-watch.png"
             }
             alt="product image"
@@ -77,7 +77,7 @@ const Card = ({ product }) => {
               </svg>
             </div>
             <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm dark:bg-blue-200 dark:text-blue-800 ms-3">
-              {product?.rating?.rate ?? "5.0"}
+              {product?.rating ?? "5.0"}
             </span>
           </div>
           <div className="flex items-center justify-between">
