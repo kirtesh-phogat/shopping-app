@@ -1,32 +1,42 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAuth from "../hook/useAuth";
 
 const initState = {
   email: "",
   password: "",
+  rememberMe: false,
 };
+
 const Login = () => {
   const { login } = useAuth();
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState(initState);
 
-  const handleInpChange = (e) => {
-    const { name, value } = e.target;
-    console.log(name, " : ", value);
+  const handleInpChange = (event) => {
+    const { checked, name, type, value } = event.target;
 
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData((currentData) => ({
+      ...currentData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
-  
-  const formSubmitHandler = (e) => {
-  e.preventDefault();
-  login(formData);
-  setFormData({ email: "", password: "" });
-  toast.success("Login successful!");
-};
+
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+
+    const wasSuccessful = login(formData, formData.rememberMe);
+
+    if (!wasSuccessful) {
+      toast.error("Invalid email or password.");
+      return;
+    }
+
+    setFormData(initState);
+    toast.success("Login successful!");
+    navigate("/");
+  };
 
   return (
     <div className="w-full max-w-sm mx-auto my-12 p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -49,7 +59,7 @@ const Login = () => {
             onChange={handleInpChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             placeholder="name@company.com"
-            required=""
+            required
           />
         </div>
         <div>
@@ -63,22 +73,23 @@ const Login = () => {
             type="password"
             name="password"
             id="password"
-            placeholder="••••••••"
+            placeholder="Enter your password"
             value={formData.password}
             onChange={handleInpChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-            required=""
+            required
           />
         </div>
-        <div className="flex items-start">
+        <div className="flex items-center">
           <div className="flex items-start">
             <div className="flex items-center h-5">
               <input
                 id="remember"
+                name="rememberMe"
                 type="checkbox"
-                defaultValue=""
+                checked={formData.rememberMe}
+                onChange={handleInpChange}
                 className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                required=""
               />
             </div>
             <label
@@ -88,12 +99,6 @@ const Login = () => {
               Remember me
             </label>
           </div>
-          <a
-            href="#"
-            className="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
-          >
-            Lost Password?
-          </a>
         </div>
         <button
           type="submit"
@@ -103,12 +108,12 @@ const Login = () => {
         </button>
         <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
           Not registered?{" "}
-          <a
-            href="#"
+          <Link
+            to="/register"
             className="text-blue-700 hover:underline dark:text-blue-500"
           >
             Create account
-          </a>
+          </Link>
         </div>
       </form>
     </div>

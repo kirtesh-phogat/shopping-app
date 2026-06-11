@@ -1,18 +1,28 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import NotFound from "./pages/NotFound";
 import Layout from "./Layout";
-import LearnUseEffect from "./components/LearnUseEffect";
-import Wrapping from "./components/Wrapping";
-import Cart from "./pages/Cart";
-import LearnRef from "./components/LearnRef";
-import Memoization from "./components/Memoization";
-import About from "./pages/About";
-import Services from "./pages/Services";
-import CategoryProducts from "./pages/CategoryProducts";
-import ProductDetails from "./pages/productDetail";
+import LandingPage from "./pages/LandingPage";
+
+const About = lazy(() => import("./pages/About"));
+const Cart = lazy(() => import("./pages/Cart"));
+const CategoryProducts = lazy(() => import("./pages/CategoryProducts"));
+const Login = lazy(() => import("./pages/Login"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const ProductDetails = lazy(() => import("./pages/productDetail"));
+const Register = lazy(() => import("./pages/Register"));
+const Services = lazy(() => import("./pages/Services"));
+
+const withSuspense = (element) => (
+  <Suspense
+    fallback={
+      <div className="min-h-80 grid place-items-center text-gray-500">
+        Loading...
+      </div>
+    }
+  >
+    {element}
+  </Suspense>
+);
 
 const router = createBrowserRouter([
   {
@@ -20,59 +30,43 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "",
         index: true,
         element: <LandingPage />,
       },
       {
         path: "login",
-        element: <Login />,
+        element: withSuspense(<Login />),
       },
       {
         path: "register",
-        element: <Register />,
-      },
-      {
-        path: "useeffect",
-        element: <LearnUseEffect />,
-      },
-      {
-        path: "learnref",
-        element: <LearnRef />,
-      },
-      {
-        path: "memo",
-        element: <Memoization />,
-      },
-      {
-        path: "wrapping",
-        element: <Wrapping />,
+        element: withSuspense(<Register />),
       },
       {
         path: "cart",
-        element: <Cart />,
-      },
-      {
-        path: "*",
-        element: <NotFound />,
+        element: withSuspense(<Cart />),
       },
       {
         path: "about",
-        element: <About />,
-      },
-      {
-        path: "category/:categoryName",
-        element: <CategoryProducts />
-      },
-      {
-        path: "product/:productId",
-        element: <ProductDetails />
+        element: withSuspense(<About />),
       },
       {
         path: "services",
-        element: <Services />
-      }
+        element: withSuspense(<Services />),
+      },
+      {
+        path: "category/:categoryName",
+        element: withSuspense(<CategoryProducts />),
+      },
+      {
+        path: "product/:productId",
+        element: withSuspense(<ProductDetails />),
+      },
+      {
+        path: "*",
+        element: withSuspense(<NotFound />),
+      },
     ],
   },
 ]);
+
 export default router;

@@ -7,3 +7,7 @@ export const store = configureStore({
     cart: cartReducers,
   },
 });
+
+store.subscribe(() => {
+  localStorage.setItem("cart", JSON.stringify(store.getState().cart.cartItem));
+});

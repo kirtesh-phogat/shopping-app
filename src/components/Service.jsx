@@ -1,214 +1,68 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-const Service = () => {
-  return (
-    <div className="bg-white text-black min-h-screen">
+const services = [
+  {
+    title: "Fast delivery",
+    description:
+      "Products are prepared for quick and reliable delivery through trusted shipping partners.",
+  },
+  {
+    title: "Secure payments",
+    description:
+      "The storefront is designed to support safe payment providers when a backend is connected.",
+  },
+  {
+    title: "Customer support",
+    description:
+      "Clear product information and support-friendly order experiences keep shopping simple.",
+  },
+];
 
-      {/* Hero Section */}
-      <section className="bg-zinc-100 py-24 px-6 text-center">
+const Service = () => (
+  <div className="bg-white text-gray-900">
+    <section className="bg-gray-100 px-6 py-24 text-center">
+      <p className="text-sm font-semibold uppercase tracking-widest text-indigo-600">
+        What we offer
+      </p>
+      <h1 className="mt-3 text-5xl font-bold md:text-6xl">Our services</h1>
+      <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-600">
+        A straightforward shopping experience focused on useful products,
+        reliable delivery, and clear customer support.
+      </p>
+    </section>
 
-        <h1 className="text-5xl md:text-6xl font-bold mb-6">
-          Our Services
-        </h1>
-
-        <p className="max-w-3xl mx-auto text-gray-600 text-lg leading-8">
-          We provide premium ecommerce solutions and services
-          to deliver the best shopping experience for our customers.
-        </p>
-
-      </section>
-
-      {/* Services Cards */}
-      <section className="py-20 px-6 md:px-20">
-
-        <div className="grid md:grid-cols-3 gap-8">
-
-          {/* Card 1 */}
-          <div className="bg-white p-8 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border">
-
-            <div className="text-5xl mb-6">
-              🚚
-            </div>
-
-            <h2 className="text-2xl font-bold mb-4">
-              Fast Delivery
-            </h2>
-
-            <p className="text-gray-600 leading-7">
-              Get your products delivered quickly and safely
-              with our trusted shipping partners.
+    <section className="mx-auto max-w-7xl px-6 py-20">
+      <div className="grid gap-8 md:grid-cols-3">
+        {services.map((service, index) => (
+          <article
+            key={service.title}
+            className="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+          >
+            <span className="grid h-12 w-12 place-items-center rounded-full bg-indigo-50 font-bold text-indigo-700">
+              {index + 1}
+            </span>
+            <h2 className="mt-6 text-2xl font-bold">{service.title}</h2>
+            <p className="mt-4 leading-7 text-gray-600">
+              {service.description}
             </p>
+          </article>
+        ))}
+      </div>
+    </section>
 
-          </div>
-
-          {/* Card 2 */}
-          <div className="bg-white p-8 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border">
-
-            <div className="text-5xl mb-6">
-              🔒
-            </div>
-
-            <h2 className="text-2xl font-bold mb-4">
-              Secure Payments
-            </h2>
-
-            <p className="text-gray-600 leading-7">
-              We provide secure payment gateways to ensure
-              safe and protected transactions.
-            </p>
-
-          </div>
-
-          {/* Card 3 */}
-          <div className="bg-white p-8 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border">
-
-            <div className="text-5xl mb-6">
-              💬
-            </div>
-
-            <h2 className="text-2xl font-bold mb-4">
-              24/7 Support
-            </h2>
-
-            <p className="text-gray-600 leading-7">
-              Our support team is always ready to help you
-              with your queries and orders.
-            </p>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* Extra Services */}
-      <section className="bg-zinc-50 py-20 px-6 md:px-20">
-
-        <div className="text-center mb-14">
-
-          <h2 className="text-4xl font-bold mb-4">
-            Why Choose Us
-          </h2>
-
-          <p className="text-gray-600">
-            We focus on quality, trust, and customer satisfaction
-          </p>
-
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-10">
-
-          <div className="bg-white p-8 rounded-3xl shadow-md">
-
-            <h3 className="text-2xl font-bold mb-4">
-              Premium Quality Products
-            </h3>
-
-            <p className="text-gray-600 leading-7">
-              We carefully select high-quality products
-              to ensure the best experience for our customers.
-            </p>
-
-          </div>
-
-          <div className="bg-white p-8 rounded-3xl shadow-md">
-
-            <h3 className="text-2xl font-bold mb-4">
-              Easy Return Policy
-            </h3>
-
-            <p className="text-gray-600 leading-7">
-              Hassle-free return and exchange policies
-              to make your shopping experience stress-free.
-            </p>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* Stats */}
-      <section className="py-20 px-6 md:px-20">
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-
-          <div className="bg-zinc-100 p-8 rounded-3xl">
-
-            <h2 className="text-4xl font-bold text-blue-600">
-              10K+
-            </h2>
-
-            <p className="text-gray-600 mt-2">
-              Orders Delivered
-            </p>
-
-          </div>
-
-          <div className="bg-zinc-100 p-8 rounded-3xl">
-
-            <h2 className="text-4xl font-bold text-blue-600">
-              5K+
-            </h2>
-
-            <p className="text-gray-600 mt-2">
-              Happy Customers
-            </p>
-
-          </div>
-
-          <div className="bg-zinc-100 p-8 rounded-3xl">
-
-            <h2 className="text-4xl font-bold text-blue-600">
-              24/7
-            </h2>
-
-            <p className="text-gray-600 mt-2">
-              Customer Support
-            </p>
-
-          </div>
-
-          <div className="bg-zinc-100 p-8 rounded-3xl">
-
-            <h2 className="text-4xl font-bold text-blue-600">
-              100%
-            </h2>
-
-            <p className="text-gray-600 mt-2">
-              Secure Shopping
-            </p>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-black text-white py-24 px-6 text-center">
-
-        <h2 className="text-5xl font-bold mb-6">
-          Explore Our Products
-        </h2>
-
-        <p className="max-w-2xl mx-auto text-gray-400 leading-8 mb-8">
-          Discover the latest collections and experience
-          premium online shopping with us.
-        </p>
-
-        <Link
-          to="/"
-          className="bg-blue-600 hover:bg-blue-700 px-10 py-4 rounded-full text-lg transition duration-300 inline-block"
-        >
-          Shop Now
-        </Link>
-
-      </section>
-
-    </div>
-  );
-};
+    <section className="bg-gray-950 px-6 py-20 text-center text-white">
+      <h2 className="text-4xl font-bold">Explore the collection</h2>
+      <p className="mx-auto mt-4 max-w-2xl text-gray-400">
+        Browse products and categories from the main storefront.
+      </p>
+      <Link
+        to="/"
+        className="mt-8 inline-block rounded-full bg-indigo-600 px-10 py-4 font-medium hover:bg-indigo-700"
+      >
+        Shop now
+      </Link>
+    </section>
+  </div>
+);
 
 export default Service;

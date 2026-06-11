@@ -1,18 +1,17 @@
-import { Outlet, useLocation } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
-const Layout = () => {
-  const location = useLocation();
-  return (
-    <>
-      <ToastContainer />
-      <Navbar />
+const Layout = () => (
+  <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900">
+    <ToastContainer position="top-right" autoClose={2500} />
+    <Navbar />
+    <main className="flex-1">
       <Outlet />
-      {location.pathname !== "/login" && <Footer />}
-    </>
-  );
-};
+    </main>
+    <Footer />
+  </div>
+);
 
 export default Layout;

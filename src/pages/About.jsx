@@ -1,13 +1,5 @@
-import React from 'react'
-import Aboout from '../components/Aboout'
+import AboutContent from "../components/AboutContent";
 
-
-const About = () => {
-  return (
-    <>
-    <Aboout />
-    </>
-  )
-}
+const About = () => <AboutContent />;
 
 export default About;

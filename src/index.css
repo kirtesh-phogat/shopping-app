@@ -10,15 +10,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-@layer base
-{
-    .btn{
-      @apply px-6 py-2 rounded cursor-pointer
-    }
-    .btn-primary{
-      @apply bg-blue-500 hover:bg-blue-400
-    }
-    .btn-success{
-      @apply bg-green-500 hover:bg-green-400
-    }
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #f9fafb;
 }

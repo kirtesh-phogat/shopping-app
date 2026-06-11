@@ -1,12 +1,5 @@
-import React from 'react'
-import Service from '../components/Service'
+import Service from "../components/Service";
 
-const Services = () => {
-  return (
-    <>
-    <Service />
-    </>
-  )
-}
+const Services = () => <Service />;
 
 export default Services;

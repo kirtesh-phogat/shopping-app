@@ -1,7 +1,6 @@
-import React from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
-const Aboout = () => {
+const AboutContent = () => {
   return (
     <div className="bg-white text-black min-h-screen">
         
@@ -126,4 +125,4 @@ const Aboout = () => {
   );
 };
 
-export default Aboout;
+export default AboutContent;

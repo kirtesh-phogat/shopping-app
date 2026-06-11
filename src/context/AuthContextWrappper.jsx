@@ -1,58 +1,67 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 
 const AuthContext = createContext();
 
-const AuthContextWrappper = ({ children }) => {
-  const [isLoggedIn, setLoggedIn] = useState(() => {
-    const stored = localStorage.getItem("isLoggedIn");
-    return stored ? JSON.parse(stored) : false;
-  });
+const readStoredUser = () => {
+  try {
+    const storedUser =
+      localStorage.getItem("user") || sessionStorage.getItem("user");
 
-  const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem("user");
     return storedUser ? JSON.parse(storedUser) : null;
-  });
+  } catch {
+    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
+    return null;
+  }
+};
 
-  // ✅ Sync login state
-  useEffect(() => {
-    localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
-  }, [isLoggedIn]);
+const readRegisteredUsers = () => {
+  try {
+    const users = JSON.parse(localStorage.getItem("userData"));
+    return Array.isArray(users) ? users : [];
+  } catch {
+    return [];
+  }
+};
 
-  // ✅ Sync user
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("user");
-    }
-  }, [user]);
+const AuthContextWrappper = ({ children }) => {
+  const [user, setUser] = useState(readStoredUser);
 
-  // 🔥 FINAL LOGIN (CORRECT)
-  const login = (formData) => {
-    const users = JSON.parse(localStorage.getItem("userData")) || [];
+  const login = (formData, rememberMe = false) => {
+    const users = readRegisteredUsers();
+    const email = formData.email.trim().toLowerCase();
 
     const matchedUser = users.find(
-      (u) =>
-        u.email === formData.email &&
-        u.password === formData.password
+      (registeredUser) =>
+        registeredUser.email?.toLowerCase() === email &&
+        registeredUser.password === formData.password,
     );
 
-    if (matchedUser) {
-      setUser(matchedUser); // ✅ FULL USER
-      setLoggedIn(true);
-    } else {
-      alert("Invalid credentials");
+    if (!matchedUser) {
+      return false;
     }
+
+    const { password: _password, ...safeUser } = matchedUser;
+    const storage = rememberMe ? localStorage : sessionStorage;
+
+    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
+    storage.setItem("user", JSON.stringify(safeUser));
+    setUser(safeUser);
+
+    return true;
   };
 
-  // ✅ LOGOUT
   const logout = () => {
+    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     setUser(null);
-    setLoggedIn(false);
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, user }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn: Boolean(user), login, logout, user }}
+    >
       {children}
     </AuthContext.Provider>
   );

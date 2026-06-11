@@ -1,40 +1,36 @@
-// Import Swiper React components
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-// import required modules
-import { Pagination, Navigation, Autoplay } from "swiper/modules";
+const slides = Array.from(
+  { length: 7 },
+  (_, index) => `/assets/img/slide (${index + 1}).jpg`,
+);
 
-export default function HeroSlider() {
-  return (
-    <>
-      <Swiper
-        slidesPerView={1}
-        spaceBetween={30}
-        loop={true}
-        pagination={{
-          clickable: true,
-        }}
-        autoplay={{
-          delay: 1500,
-          disableOnInteraction: false,
-        }}
-        navigation={true}
-        modules={[Pagination, Navigation,Autoplay]}
-        className="mySwiper"
-      >
-        <SwiperSlide><img src="assets/img/slide (1).jpg" alt="" className="w-full h-55 sm:h-70 md:h-100 object-cover" loading="lazy"/></SwiperSlide>
-        <SwiperSlide><img src="assets/img/slide (2).jpg" alt="" className="w-full h-55 sm:h-70 md:h-100 object-cover" loading="lazy"/></SwiperSlide>
-        <SwiperSlide><img src="assets/img/slide (3).jpg" alt="" className="w-full h-55 sm:h-70 md:h-100 object-cover" loading="lazy"/></SwiperSlide>
-        <SwiperSlide><img src="assets/img/slide (4).jpg" alt="" className="w-full h-55 sm:h-70 md:h-100 object-cover" loading="lazy"/></SwiperSlide>
-        <SwiperSlide><img src="assets/img/slide (5).jpg" alt="" className="w-full h-55 sm:h-70 md:h-100 object-cover" loading="lazy"/></SwiperSlide>
-        <SwiperSlide><img src="assets/img/slide (6).jpg" alt="" className="w-full h-55 sm:h-70 md:h-100 object-cover" loading="lazy"/></SwiperSlide>
-        <SwiperSlide><img src="assets/img/slide (7).jpg" alt="" className="w-full h-55 sm:h-70 md:h-100 object-cover" loading="lazy"/></SwiperSlide>
-      </Swiper>
-    </>
-  );
-}
+const HeroSlider = () => (
+  <section aria-label="Featured promotions">
+    <Swiper
+      slidesPerView={1}
+      loop
+      pagination={{ clickable: true }}
+      autoplay={{ delay: 3500, disableOnInteraction: false }}
+      navigation
+      modules={[Pagination, Navigation, Autoplay]}
+    >
+      {slides.map((slide, index) => (
+        <SwiperSlide key={slide}>
+          <img
+            src={slide}
+            alt={`Featured shopping promotion ${index + 1}`}
+            className="h-56 w-full object-cover sm:h-72 md:h-96"
+            loading={index === 0 ? "eager" : "lazy"}
+          />
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  </section>
+);
+
+export default HeroSlider;

@@ -1,131 +1,152 @@
-import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart } from "../redux/slices/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import {
+  addProductIntoCart,
+  clearCart,
+  decreaseQuantity,
+  removeFromCart,
+} from "../redux/slices/cartSlice";
+import { formatPrice } from "../utils/product";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.cartItem);
-
-  return (
-    <div className="max-w-6xl mx-auto p-6">
-
-      <h1 className="text-3xl font-bold text-center mb-10">
-        Items List in Cart
-      </h1>
-
-      {products.length === 0 ? (
-        <p className="text-center text-gray-500 text-lg">
-          Cart is empty
-        </p>
-      ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => (
-            <CartItem
-              key={product.id}
-              product={product}
-              dispatch={dispatch}
-            />
-          ))}
-        </div>
-      )}
-    </div>
+  const totalItems = products.reduce(
+    (total, product) => total + product.quantity,
+    0,
   );
-};
+  const totalPrice = products.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0,
+  );
 
-
-
-
-
-/* ------------------- Cart Item Component ------------------- */
-
-const CartItem = ({ product, dispatch }) => {
-
-  const removeHandler = () => {
-    dispatch(removeFromCart(product.id));
-  };
+  if (products.length === 0) {
+    return (
+      <section className="mx-auto grid min-h-96 max-w-4xl place-items-center px-6 py-16 text-center">
+        <div>
+          <h1 className="text-3xl font-bold">Your cart is empty</h1>
+          <p className="mt-3 text-gray-500">
+            Add a few products and they will appear here.
+          </p>
+          <Link
+            to="/"
+            className="mt-6 inline-block rounded-xl bg-indigo-600 px-6 py-3 font-medium text-white hover:bg-indigo-700"
+          >
+            Continue shopping
+          </Link>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <div className="border rounded-xl shadow-md p-5 flex flex-col justify-between">
-
-      <img
-        src={product.thumbnail}
-        alt={product.title}
-        className="h-48 object-contain mb-4"
-      />
-
-      <h2 className="font-semibold text-lg line-clamp-1">
-        {product.title}
-      </h2>
-
-      <p className="text-gray-600 text-sm mt-2 line-clamp-3">
-        {product.description}
-      </p>
-
-      <div className="flex items-center justify-between mt-4">
-        <span className="text-xl font-bold text-green-600">
-           ₹{Math.ceil((product?.price) * 80)}
-        </span>
-
-        <div className="flex items-center mt-1 mb-1 ">
-            <div className="flex items-center space-x-1 rtl:space-x-reverse">
-              <svg
-                className="w-4 h-4 text-yellow-300"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 22 20"
-              >
-                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-              </svg>
-              <svg
-                className="w-4 h-4 text-yellow-300"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 22 20"
-              >
-                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-              </svg>
-              <svg
-                className="w-4 h-4 text-yellow-300"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 22 20"
-              >
-                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-              </svg>
-              <svg
-                className="w-4 h-4 text-yellow-300"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 22 20"
-              >
-                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-              </svg>
-              <svg
-                className="w-4 h-4 text-gray-200 dark:text-gray-600"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 22 20"
-              >
-                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-              </svg>
-            </div>
-            <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2.5 py-0.4 rounded-full ms-3">
-              {product?.rating ?? "5.0"}
-            </span>
-          </div>
+    <section className="mx-auto max-w-6xl px-4 py-10">
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="text-3xl font-bold">Shopping cart</h1>
+          <p className="mt-1 text-gray-500">{totalItems} item(s)</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => dispatch(clearCart())}
+          className="rounded-lg px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50"
+        >
+          Clear cart
+        </button>
       </div>
 
-      <button
-        onClick={removeHandler}
-        className="mt-5 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg transition"
-      >
-        Remove From Cart
-      </button>
-    </div>
+      <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
+        <div className="space-y-4">
+          {products.map((product) => (
+            <article
+              key={product.id}
+              className="grid gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:grid-cols-[120px_1fr]"
+            >
+              <Link to={`/product/${product.id}`}>
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className="h-28 w-full rounded-xl object-contain"
+                />
+              </Link>
+              <div className="flex flex-col justify-between gap-4">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <Link
+                      to={`/product/${product.id}`}
+                      className="font-semibold text-gray-900 hover:text-indigo-700"
+                    >
+                      {product.title}
+                    </Link>
+                    <p className="mt-1 text-sm capitalize text-gray-500">
+                      {product.category}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => dispatch(removeFromCart(product.id))}
+                    className="text-sm text-red-600 hover:underline"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center rounded-lg border border-gray-200">
+                    <button
+                      type="button"
+                      onClick={() => dispatch(decreaseQuantity(product.id))}
+                      className="px-3 py-1.5 text-lg hover:bg-gray-100"
+                      aria-label={`Decrease ${product.title} quantity`}
+                    >
+                      -
+                    </button>
+                    <span className="min-w-10 text-center font-medium">
+                      {product.quantity}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => dispatch(addProductIntoCart(product))}
+                      className="px-3 py-1.5 text-lg hover:bg-gray-100"
+                      aria-label={`Increase ${product.title} quantity`}
+                    >
+                      +
+                    </button>
+                  </div>
+                  <span className="font-bold text-gray-900">
+                    {formatPrice(product.price * product.quantity)}
+                  </span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <aside className="h-fit rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h2 className="text-xl font-bold">Order summary</h2>
+          <div className="mt-5 flex justify-between text-gray-600">
+            <span>Subtotal</span>
+            <span>{formatPrice(totalPrice)}</span>
+          </div>
+          <div className="mt-3 flex justify-between text-gray-600">
+            <span>Delivery</span>
+            <span className="text-green-600">Free</span>
+          </div>
+          <div className="mt-5 flex justify-between border-t border-gray-200 pt-5 text-lg font-bold">
+            <span>Total</span>
+            <span>{formatPrice(totalPrice)}</span>
+          </div>
+          <button
+            type="button"
+            className="mt-6 w-full rounded-xl bg-indigo-600 px-5 py-3 font-medium text-white hover:bg-indigo-700"
+          >
+            Proceed to checkout
+          </button>
+          <p className="mt-3 text-center text-xs text-gray-400">
+            Checkout is not connected in this frontend demo.
+          </p>
+        </aside>
+      </div>
+    </section>
   );
 };
 
